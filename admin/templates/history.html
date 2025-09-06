@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Cron Job History</h2>
+
+    <!-- Search Form (server-side) -->
+    <form method="get" action="{{ url_for('history') }}" class="mb-4">
+        <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
+            <input type="text" name="q" placeholder="Search by domain, timestamp or result"
+                   value="{{ query or '' }}"
+                   class="w-full sm:w-1/2 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm">
+            <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 text-sm">
+                Search
+            </button>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <div class="overflow-x-auto bg-white shadow rounded-2xl">
+        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+            <thead class="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+                <tr>
+                    <th class="px-6 py-3">#</th>
+                    <th class="px-6 py-3">Domain</th>
+                    <th class="px-6 py-3">Timestamp (BD)</th>
+                    <th class="px-6 py-3">Result</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for item in history %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 text-gray-900">{{ loop.index + ((page - 1) * 10) }}</td>
+                    <td class="px-6 py-4 text-blue-600 break-all font-medium">{{ item.job_id }}</td>
+                    <td class="px-6 py-4 text-gray-700">{{ item.timestamp }}</td>
+                    <td class="px-6 py-4 text-gray-700">{{ item.result }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4" class="text-center py-6 text-gray-500">No history found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-between items-center mt-6">
+        {% if page > 1 %}
+        <a href="{{ url_for('history', page=page-1, q=query) }}"
+           class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded shadow text-sm">
+            Previous
+        </a>
+        {% else %}
+        <span></span>
+        {% endif %}
+
+        {% if page * 10 < total %}
+        <a href="{{ url_for('history', page=page+1, q=query) }}"
+           class="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded shadow text-sm">
+            Next
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

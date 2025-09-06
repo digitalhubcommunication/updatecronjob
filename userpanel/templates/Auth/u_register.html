@@ -1,0 +1,56 @@
+<!-- templates/Auth/u_register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="mb-4">
+                    {% for category, message in messages %}
+                        <li class="text-{{ 'red' if category == 'error' else 'green' }}-600">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('register') }}">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700">Full Name</label>
+                <input type="text" name="name" id="name" class="w-full border rounded p-2" required>
+            </div>
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700">Email</label>
+                <input type="email" name="email" id="email" class="w-full border rounded p-2" required>
+            </div>
+            <div class="mb-4">
+                <label for="mobile" class="block text-gray-700">Mobile</label>
+                <input type="text" name="mobile" id="mobile" class="w-full border rounded p-2" required>
+            </div>
+            <div class="mb-4">
+                <label for="domain" class="block text-gray-700">Domain</label>
+                <input type="text" name="domain" id="domain" class="w-full border rounded p-2" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block text-gray-700">Password</label>
+                <input type="password" name="password" id="password" class="w-full border rounded p-2" required>
+            </div>
+            <div class="mb-6">
+                <label for="confirm_password" class="block text-gray-700">Confirm Password</label>
+                <input type="password" name="confirm_password" id="confirm_password" class="w-full border rounded p-2" required>
+            </div>
+            <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Register</button>
+        </form>
+
+        <p class="mt-4 text-center text-sm text-gray-600">
+            Already have an account? <a href="{{ url_for('login') }}" class="text-blue-600 hover:underline">Login</a>
+        </p>
+    </div>
+</body>
+</html>

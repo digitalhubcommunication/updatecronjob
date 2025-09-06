@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Price Update URL</title>
+</head>
+<body>
+    <h2>🔗 Add or Update Price Update URL</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div>{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <input type="url" name="price_update_url" placeholder="https://example.com/update_price.php" required>
+        <button type="submit">💾 Save</button>
+    </form>
+</body>
+</html>

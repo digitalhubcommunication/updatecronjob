@@ -1,0 +1,62 @@
+{% extends 'u_dashboard.html' %}
+
+{% block title %}Manual CronJobs{% endblock %}
+{% block page_title %}Manual CronJobs{% endblock %}
+
+{% block breadcrumb %}
+<nav class="flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+            <a href="{{ url_for('u_dashboard') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                <i class="fas fa-home mr-2"></i>
+                Home
+            </a>
+        </li>
+        <li aria-current="page">
+            <div class="flex items-center">
+                <i class="fas fa-angle-right text-gray-400"></i>
+                <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Manual CronJobs</span>
+            </div>
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block main_content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow space-y-6">
+    <h2 class="text-xl font-semibold text-gray-800">➕ Add Manual Cron Job</h2>
+
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="space-y-2">
+          {% for category, message in messages %}
+            <div class="p-3 rounded text-white {% if category == 'success' %}bg-green-500{% elif category == 'danger' %}bg-red-500{% else %}bg-gray-500{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" class="space-y-6">
+        <!-- Single URL input -->
+        <div>
+            <label for="single_price_url" class="block text-sm font-medium text-gray-700">Price Update URL</label>
+            <input type="url" name="single_price_url" id="single_price_url"
+                   placeholder="https://example.com/cron-job"
+                   class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm
+                          focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                   required>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex justify-end space-x-4 pt-2">
+            <button type="submit"
+                    class="px-6 py-2 bg-indigo-600 text-white font-medium rounded hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                💾 Save URL
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

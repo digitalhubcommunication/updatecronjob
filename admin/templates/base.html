@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cron Dashboard{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <div class="flex flex-1">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md p-4 hidden md:block">
+            <h2 class="text-xl font-bold mb-6">Dashboard Menu</h2>
+            <nav class="space-y-3">
+                <a href="{{ url_for('dashboard') }}" class="block py-2 px-4 rounded hover:bg-blue-100 transition-colors">🏠 Home</a>
+                <a href="{{ url_for('add_cron') }}" class="block py-2 px-4 rounded hover:bg-green-100 transition-colors">➕ Add Cron Job</a>
+                <a href="{{ url_for('cron_list') }}" class="block py-2 px-4 rounded hover:bg-yellow-100 transition-colors">📋 Cron Job List</a>
+                <a href="{{ url_for('history') }}" class="block py-2 px-4 rounded hover:bg-purple-100 transition-colors">📜 Cron Job History</a>
+                <a href="{{ url_for('manage_clients') }}" class="block py-2 px-4 rounded hover:bg-indigo-100 transition-colors">👥 Manage Clients</a>
+                <a href="{{ url_for('package') }}" class="block py-2 px-4 rounded hover:bg-pink-100 transition-colors">📦 Package</a>
+                <a href="{{ url_for('manage_package') }}" class="block py-2 px-4 rounded hover:bg-orange-100 transition-colors">📦 Manage Package</a>
+                <a href="{{ url_for('active_package') }}" class="block py-2 px-4 rounded hover:bg-teal-100 transition-colors">📌 Active Package</a>
+                <a href="{{ url_for('settings') }}" class="block py-2 px-4 rounded hover:bg-red-100 transition-colors">⚙️ Settings</a>
+                <a href="{{ url_for('logout') }}" class="block py-2 px-4 rounded hover:bg-red-100 transition-colors">⚙️ Logout</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+           
+
+            <!-- Page Content -->
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white text-center text-sm py-4 shadow mt-8">
+        &copy; {{ current_year or 2025 }} Cron Dashboard. All rights reserved.
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(#0f172a 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: moveDots 10s linear infinite;
+        }
+        @keyframes moveDots {
+            0% { background-position: 0 0; }
+            100% { background-position: 20px 20px; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-gray-900 text-white p-4">
+
+<div class="w-full max-w-md bg-white text-gray-900 p-6 rounded-xl shadow-xl">
+    <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+
+    <form method="POST" action="{{ url_for('register') }}">
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Name</label>
+            <input type="text" name="name" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Username</label>
+            <input type="text" name="username" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Email</label>
+            <input type="email" name="email" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Phone</label>
+            <input type="text" name="phone" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Telegram Username</label>
+            <input type="text" name="telegram_username" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Telegram Chat ID</label>
+            <input type="text" name="telegram_chat_id" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring">
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Password</label>
+            <input type="password" name="password" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring" required>
+        </div>
+
+        <div class="mb-6">
+            <label class="block text-sm font-semibold mb-1">Confirm Password</label>
+            <input type="password" name="confirm_password" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring" required>
+        </div>
+
+        <button class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Register</button>
+    </form>
+</div>
+
+<!-- SweetAlert2 for flash messages -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                Swal.fire({
+                    icon: '{{ category }}',
+                    title: '{{ 'Success' if category == 'success' else 'Error' }}',
+                    text: '{{ message }}',
+                    confirmButtonColor: category === 'success' ? '#16a34a' : '#dc2626',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</script>
+</body>
+</html>

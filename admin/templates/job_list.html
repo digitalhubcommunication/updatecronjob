@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Cron Job List</h2>
+    <div class="overflow-x-auto bg-white shadow rounded-2xl">
+        <table class="min-w-full divide-y divide-gray-200 text-sm text-left">
+            <thead class="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+                <tr>
+                    <th class="px-6 py-3">ID</th>
+                    <th class="px-6 py-3">Domain</th>
+                    <th class="px-6 py-3">URL</th>
+                    <th class="px-6 py-3">Status</th>
+                    <th class="px-6 py-3">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for job in jobs %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium text-gray-900">{{ job.id }}</td>
+                    <td class="px-6 py-4">{{ job.domain }}</td>
+                    <td class="px-6 py-4 text-blue-600 underline break-all">{{ job.url }}</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold 
+                            {{ 'bg-green-100 text-green-800' if job.status == 'online' else 'bg-red-100 text-red-800' }}">
+                            {{ job.status|capitalize }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 flex flex-col sm:flex-row gap-2">
+                        <a href="{{ url_for('edit_cron', job_id=job.id) }}"
+                           class="px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-xs text-center">
+                            Edit
+                        </a>
+                        <a href="{{ url_for('delete_cron', job_id=job.id) }}"
+                           class="px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-xs text-center">
+                            Delete
+                        </a>
+                        <a href="{{ url_for('toggle_status', job_id=job.id) }}"
+                           class="px-4 py-1 bg-yellow-400 text-gray-800 rounded hover:bg-yellow-500 text-xs text-center">
+                            {% if job.status == 'online' %}Disable{% else %}Enable{% endif %}
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

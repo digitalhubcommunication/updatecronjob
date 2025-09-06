@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Package List{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto mt-8 px-4">
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-3xl font-bold text-gray-800">Package List</h2>
+        <a href="{{ url_for('add_package') }}" 
+           class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700 shadow">
+            ➕ Add Package
+        </a>
+    </div>
+
+    <div class="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-gray-100 text-gray-700 uppercase text-xs font-semibold">
+                <tr>
+                    <th class="px-6 py-3 text-left">Package Name</th>
+                    <th class="px-6 py-3 text-left">Validity (days)</th>
+                    <th class="px-6 py-3 text-left">Price</th>
+                    <th class="px-6 py-3 text-left">Interval</th>
+                    <th class="px-6 py-3 text-left">Status</th>
+                    <th class="px-6 py-3 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for pkg in packages %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium text-gray-900">{{ pkg.name }}</td>
+                    <td class="px-6 py-4">{{ pkg.validity }}</td>
+                    <td class="px-6 py-4">${{ pkg.price }}</td>
+                    <td class="px-6 py-4">{{ pkg.interval }}</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
+                            {{ 'bg-green-100 text-green-800' if pkg.status == 'enabled' else 'bg-red-100 text-red-800' }}">
+                            {{ pkg.status.capitalize() }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 flex flex-wrap space-x-2">
+                        {% if pkg.status == 'enabled' %}
+                        <a href="{{ url_for('toggle_package', package_id=pkg.id) }}" 
+                           class="inline-block px-3 py-1 bg-red-500 text-white text-xs font-medium rounded hover:bg-red-600 shadow">
+                            Disable
+                        </a>
+                        {% else %}
+                        <a href="{{ url_for('toggle_package', package_id=pkg.id) }}" 
+                           class="inline-block px-3 py-1 bg-green-500 text-white text-xs font-medium rounded hover:bg-green-600 shadow">
+                            Enable
+                        </a>
+                        {% endif %}
+
+                        <a href="{{ url_for('edit_package', package_id=pkg.id) }}" 
+                           class="inline-block px-3 py-1 bg-blue-500 text-white text-xs font-medium rounded hover:bg-blue-600 shadow">
+                            Edit
+                        </a>
+                        <a href="{{ url_for('delete_package', package_id=pkg.id) }}" 
+                           class="inline-block px-3 py-1 bg-gray-500 text-white text-xs font-medium rounded hover:bg-gray-600 shadow"
+                           onclick="return confirm('Are you sure you want to delete this package?');">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center px-6 py-4 text-gray-500">No packages found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

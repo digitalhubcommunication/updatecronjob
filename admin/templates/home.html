@@ -1,0 +1,44 @@
+{% extends "dashboard.html" %}
+
+{% block title %}Dashboard Home{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 mt-8">
+    <div class="text-center">
+        <h1 class="text-3xl sm:text-4xl font-bold mb-2">Welcome to Cron Job Dashboard</h1>
+        <p class="text-gray-600 text-lg">Easily manage and monitor your scheduled cron job URLs in real-time.</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        <!-- Add New Cron Job -->
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">Add New Cron Job</h3>
+            <p class="text-gray-600 mb-4">Create a new cron job with a custom interval.</p>
+            <a href="{{ url_for('add_cron') }}"
+               class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                ➕ Add Cron Job
+            </a>
+        </div>
+
+        <!-- View Cron Jobs -->
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">View Cron Jobs</h3>
+            <p class="text-gray-600 mb-4">See the list of all cron jobs and manage them.</p>
+            <a href="{{ url_for('cron_list') }}"
+               class="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition">
+                📋 Cron Job List
+            </a>
+        </div>
+
+        <!-- Cron Job History -->
+        <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h3 class="text-xl font-semibold mb-2">Cron Job History</h3>
+            <p class="text-gray-600 mb-4">Check the execution logs of your cron jobs.</p>
+            <a href="{{ url_for('history') }}"
+               class="inline-block bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition">
+                📜 View History
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

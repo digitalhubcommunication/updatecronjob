@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="w-full max-w-md mx-auto bg-white rounded-xl shadow-md p-6 my-8">
+    <h1 class="text-2xl font-bold mb-6 text-center">Edit Package</h1>
+
+    <form method="POST" action="">
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2" for="name">Package Name</label>
+            <input
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                type="text"
+                id="name"
+                name="name"
+                value="{{ package.name }}"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2" for="validity">Validity (in days)</label>
+            <input
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                type="number"
+                id="validity"
+                name="validity"
+                value="{{ package.validity }}"
+                required>
+        </div>
+
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2" for="price">Price ($)</label>
+            <input
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                type="number"
+                id="price"
+                name="price"
+                step="0.01"
+                value="{{ package.price }}"
+                required>
+        </div>
+
+        <!-- Interval Time -->
+        <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2" for="interval_time">Interval Time</label>
+            <input
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                type="number"
+                id="interval_time"
+                name="interval_time"
+                value="{{ package.interval.split(' ')[0] }}"
+                required>
+        </div>
+
+        <!-- Interval Unit -->
+        <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2" for="interval_unit">Interval Unit</label>
+            <select
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                id="interval_unit"
+                name="interval_unit"
+                required>
+                <option value="seconds" {% if package.interval.split(' ')[1] == "seconds" %}selected{% endif %}>Seconds</option>
+                <option value="minutes" {% if package.interval.split(' ')[1] == "minutes" %}selected{% endif %}>Minutes</option>
+            </select>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="{{ url_for('package') }}" class="text-blue-600 hover:text-blue-800 hover:underline transition w-full sm:w-auto text-center">Back</a>
+            <button
+                type="submit"
+                class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition w-full sm:w-auto">
+                Save Changes
+            </button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

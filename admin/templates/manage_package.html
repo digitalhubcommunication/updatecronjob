@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="max-w-6xl mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Manage Packages</h2>
+
+    <div class="overflow-x-auto bg-white shadow rounded-lg">
+        <table class="min-w-full table-auto border-collapse">
+            <thead class="bg-gray-100 text-left">
+                <tr>
+                    <th class="px-4 py-3 border-b">ID</th>
+                    <th class="px-4 py-3 border-b">Name</th>
+                    <th class="px-4 py-3 border-b">Price ($)</th>
+                    <th class="px-4 py-3 border-b">Interval</th>
+                    <th class="px-4 py-3 border-b">Status</th>
+                    <th class="px-4 py-3 border-b text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for package in packages %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 border-b">{{ package.id }}</td>
+                    <td class="px-4 py-3 border-b">{{ package.name }}</td>
+                    <td class="px-4 py-3 border-b">{{ package.price }}</td>
+                    <td class="px-4 py-3 border-b">{{ package.interval }}</td>
+                    <td class="px-4 py-3 border-b">
+                        <span class="px-2 py-1 rounded text-xs font-medium {{ 'bg-green-100 text-green-700' if package.status == 'enabled' else 'bg-red-100 text-red-700' }}">
+                            {{ package.status.capitalize() }}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 border-b text-center space-x-2">
+                        <a href="{{ url_for('edit_package', package_id=package.id) }}" class="text-blue-600 hover:underline">Edit</a>
+                        <a href="{{ url_for('toggle_package', package_id=package.id) }}" class="text-yellow-600 hover:underline">
+                            {{ 'Disable' if package.status == 'enabled' else 'Enable' }}
+                        </a>
+                        <a href="{{ url_for('delete_package', package_id=package.id) }}" class="text-red-600 hover:underline">Delete</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="6" class="text-center py-6 text-gray-500">No packages found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
