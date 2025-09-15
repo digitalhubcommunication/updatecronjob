@@ -8,7 +8,7 @@ import hashlib
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
-DB_FILE = "../cronjobs.db"
+DB_PATH = "/home/manage.expresscronjob.com/cronjobs.db"
 
 def init_db():
     if not os.path.exists(DB_FILE):
