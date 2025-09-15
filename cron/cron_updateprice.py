@@ -6,7 +6,8 @@ import os
 import traceback
 import threading
 
-DB_PATH = os.path.abspath("../cronjobs.db")  # Adjust path if needed
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "../cronjobs.db")
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH, timeout=10, check_same_thread=False)
