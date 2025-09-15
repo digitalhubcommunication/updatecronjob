@@ -5,7 +5,8 @@ from datetime import datetime, timedelta
 import pytz
 
 # DB File Path
-DB = '../cronjobs.db'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "../cronjobs.db")
 # Timezone
 BD_TZ = pytz.timezone("Asia/Dhaka")
 
