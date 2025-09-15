@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = "supersecretkey"
-DB_FILE = "../cronjobs.db"
+DB_PATH = "/home/beta.expresscronjob.com/cronjobs.db"
 
 def init_db():
     if not os.path.exists(DB_FILE):
